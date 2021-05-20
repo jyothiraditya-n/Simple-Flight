@@ -1,50 +1,45 @@
-# Simple Flight Copyright (C) 2019 Jyothiraditya Nellakra
+# Simple Flight (C) 2019-2021 Jyothiraditya Nellakra
+#
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later
+# version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+# details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program. If not, see <https://www.gnu.org/licenses/>.
 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+objs = $(patsubst %.c,%.o,$(wildcard src/*.c))
 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-# GNU General Public License for more details.
+current_objs = $(wildcard src/*.o)
+current_progs = $(wildcard simple-flight)
 
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <https://www.gnu.org/licenses/>.
+CLEAN = $(foreach obj,$(current_objs),rm $(obj);)
+CLEAN += $(foreach prog,$(current_progs),rm $(prog);)
 
-# Include the header file.
-include headerfile.mk
+CC ?= gcc
+CFLAGS += -std=c99
+CPPFLAGS += -Wall -Wextra -Werror -O3
 
-# External Resources
-include core/headerfile.mk
-include graphics/headerfile.mk
-include interface/headerfile.mk
-include physics/headerfile.mk
-include world/headerfile.mk
+LIBS += -pthread -lm
 
-include core/makefile.mk
-include graphics/makefile.mk
-include interface/makefile.mk
-include physics/makefile.mk
-include world/makefile.mk
+$(objs) : %.o : %.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
-# Folders
-build/:
-	mkdir -p build/
+simple-flight : $(objs)
+	$(CC) $(CFLAGS) $(objs) -o $@ $(LIBS)
 
-# Files
-build/main: $(objects)
-	$(CC) $(CFLAGS) $(objects) -o build/main
+.DEFAULT_GOAL = all
+.PHONY : all clean run
 
-# Commands
-all: build/main
+all : simple-flight
 
-test: build/main
-	build/main $(FLAGS) --plane files/planes/unit_cube --world files/worlds/flat_earth
+clean :
+	$(CLEAN)
 
-run: build/main
-	build/main $(FLAGS)
-
-clean: build/
-	rm -r build/
+run : simple-flight
+	./simple-flight
