@@ -58,3 +58,50 @@ SFv_t SFv_cross(SFv_t a, SFv_t b) {
 
 	return vec;
 }
+
+SFo_t SFo_add(SFo_t a, SFo_t b) {
+	a.alpha += b.alpha;
+	a.beta += b.beta;
+	a.gamma += b.gamma;
+
+	return a;
+}
+
+SFo_t SFo_scale(Sfo_t ori, double factor) {
+	ori.alpha *= factor;
+	ori.beta *= factor;
+	ori.gamma *= factor;
+
+	return ori;
+}
+
+SFv_t Sfm_orient(Sfv_t vec, Sfo_t ori) {
+	SFv_t vec_tmp = {0.0, 0.0, 0.0};
+
+	vec_tmp.y = vec.y * cos(ori.alpha);
+	vec_tmp.z = vec.y * sin(ori.alpha);
+
+	vec_tmp.y += vec.z * -sin(ori.alpha);
+	vec_tmp.z += vec.z * cos(ori.alpha);
+
+	vec_tmp.x = vec.x;
+	vec = vec_tmp;
+
+	vec_tmp.x = vec.x * cos(ori.beta);
+	vec_tmp.z = vec.x * -sin(ori.beta);
+
+	vec_tmp.x += vec.z * sin(ori.beta);
+	vec_tmp.z += vec.z * cos(ori.beta);
+
+	vec_tmp.y = vec.y;
+	vec = vec_tmp;
+
+	vec_tmp.x = vec.x * cos(ori.gamma);
+	vec_tmp.y = vec.x * sin(ori.gamma);
+
+	vec_tmp.x += vec.y * -sin(ori.gamma);
+	vec_tmp.y += vec.y * cos(ori.gamma);
+
+	vec_tmp.z = vec.z;
+	return vec_tmp;
+}
