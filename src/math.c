@@ -67,7 +67,7 @@ SFo_t SFo_add(SFo_t a, SFo_t b) {
 	return a;
 }
 
-SFo_t SFo_scale(Sfo_t ori, double factor) {
+SFo_t SFo_scale(SFo_t ori, double factor) {
 	ori.alpha *= factor;
 	ori.beta *= factor;
 	ori.gamma *= factor;
@@ -75,7 +75,7 @@ SFo_t SFo_scale(Sfo_t ori, double factor) {
 	return ori;
 }
 
-SFv_t Sfm_orient(Sfv_t vec, Sfo_t ori) {
+SFv_t Sfm_orient(SFv_t vec, SFo_t ori) {
 	SFv_t vec_tmp = {0.0, 0.0, 0.0};
 
 	vec_tmp.y = vec.y * cos(ori.alpha);

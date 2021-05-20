@@ -38,8 +38,8 @@ extern double SFv_dot(SFv_t a, SFv_t b);
 extern SFv_t SFv_cross(SFv_t a, SFv_t b);
 
 extern SFo_t SFo_add(SFo_t a, SFo_t b);
-extern SFo_t SFo_scale(Sfo_t ori, double factor);
+extern SFo_t SFo_scale(SFo_t ori, double factor);
 
-extern SFv_t Sfm_orient(Sfv_t vec, Sfo_t ori);
+extern SFv_t Sfm_orient(SFv_t vec, SFo_t ori);
 
 #endif

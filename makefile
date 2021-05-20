@@ -22,10 +22,10 @@ CLEAN = $(foreach obj,$(current_objs),rm $(obj);)
 CLEAN += $(foreach prog,$(current_progs),rm $(prog);)
 
 CC ?= gcc
-CFLAGS += -std=c99
-CPPFLAGS += -Wall -Wextra -Werror -O3
+CFLAGS ?= -std=c99
+CPPFLAGS ?= -Wall -Wextra -Werror -O3
 
-LIBS += -pthread -lm
+LIBS ?= -pthread -lm
 
 $(objs) : %.o : %.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
