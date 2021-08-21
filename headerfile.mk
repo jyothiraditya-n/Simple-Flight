@@ -13,38 +13,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-# Include the header file.
-include headerfile.mk
+# Flags
+ifeq ($(.DEFAULT_GOAL),)
+	.DEFAULT_GOAL = all
+endif
+FLAGS += --height $(shell tput lines) --width $(shell tput cols) --graphics files/graphics/$(shell hostname)
 
-# External Resources
-include core/headerfile.mk
-include graphics/headerfile.mk
-include interface/headerfile.mk
-include physics/headerfile.mk
-include world/headerfile.mk
+ifeq ($(CC),)
+	CC = cc
+endif
+CFLAGS += -pthread -lm -I ./
 
-include core/makefile.mk
-include graphics/makefile.mk
-include interface/makefile.mk
-include physics/makefile.mk
-include world/makefile.mk
+ifeq ($(LD),)
+	LD = ld
+endif
 
-# Folders
-build/:
-	mkdir -p build/
-
-# Files
-build/main: $(objects)
-	$(CC) $(CFLAGS) $(objects) -o build/main
-
-# Commands
-all: build/main
-
-test: build/main
-	build/main $(FLAGS) --plane files/planes/unit_cube --world files/worlds/flat_earth
-
-run: build/main
-	build/main $(FLAGS)
-
-clean: build/
-	rm -r build/
+# Command Declarations
+.PHONY: all test run clean

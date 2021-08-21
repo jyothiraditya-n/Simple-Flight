@@ -13,38 +13,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-# Include the header file.
-include headerfile.mk
-
-# External Resources
-include core/headerfile.mk
-include graphics/headerfile.mk
-include interface/headerfile.mk
-include physics/headerfile.mk
-include world/headerfile.mk
-
-include core/makefile.mk
-include graphics/makefile.mk
-include interface/makefile.mk
-include physics/makefile.mk
-include world/makefile.mk
-
 # Folders
-build/:
-	mkdir -p build/
+build/world/: build/
+	mkdir -p build/world/
 
 # Files
-build/main: $(objects)
-	$(CC) $(CFLAGS) $(objects) -o build/main
+$(worldobjects): build/world/%.o: world/%.c build/world/
+	$(CC) $(CFLAGS) -c $< -o $@
+
+build/world.o: build/ $(worldobjects)
+	$(LD) $(LDFLAGS) -r $(worldobjects) -o build/world.o
 
 # Commands
-all: build/main
+all-world: build/world.o
 
-test: build/main
-	build/main $(FLAGS) --plane files/planes/unit_cube --world files/worlds/flat_earth
-
-run: build/main
-	build/main $(FLAGS)
-
-clean: build/
-	rm -r build/
+clean-world: build/world/
+	rm -r build/world/

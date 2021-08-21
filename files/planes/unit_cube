@@ -1,0 +1,81 @@
+body_count 8
+
+0.mass 0.125
+
+0.position.x 0.25
+0.position.y 0.25
+0.position.z 0.25
+
+0.drag.x 0.2625
+0.drag.y 0.2625
+0.drag.z 0.2625
+
+1.mass 0.125
+
+1.position.x -0.25
+1.position.y 0.25
+1.position.z 0.25
+
+1.drag.x 0.2625
+1.drag.y 0.2625
+1.drag.z 0.2625
+
+2.mass 0.125
+
+2.position.x 0.25
+2.position.y -0.25
+2.position.z 0.25
+
+2.drag.x 0.2625
+2.drag.y 0.2625
+2.drag.z 0.2625
+
+3.mass 0.125
+
+3.position.x -0.25
+3.position.y -0.25
+3.position.z 0.25
+
+3.drag.x 0.2625
+3.drag.y 0.2625
+3.drag.z 0.2625
+
+4.mass 0.125
+
+4.position.x 0.25
+4.position.y 0.25
+4.position.z -0.25
+
+4.drag.x 0.2625
+4.drag.y 0.2625
+4.drag.z 0.2625
+
+5.mass 0.125
+
+5.position.x -0.25
+5.position.y 0.25
+5.position.z -0.25
+
+5.drag.x 0.2625
+5.drag.y 0.2625
+5.drag.z 0.2625
+
+6.mass 0.125
+
+6.position.x 0.25
+6.position.y -0.25
+6.position.z -0.25
+
+6.drag.x 0.2625
+6.drag.y 0.2625
+6.drag.z 0.2625
+
+7.mass 0.125
+
+7.position.x -0.25
+7.position.y -0.25
+7.position.z -0.25
+
+7.drag.x 0.2625
+7.drag.y 0.2625
+7.drag.z 0.2625

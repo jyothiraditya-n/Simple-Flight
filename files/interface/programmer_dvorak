@@ -1,0 +1,17 @@
+aileron_input_left_char a
+aileron_input_right_char e
+aileron_offset_left_char '
+aileron_offset_right_char q
+elevator_input_back_char o
+elevator_input_forwards_char ,
+elevator_offset_back_char i
+elevator_offset_forwards_char y
+rudder_input_left_char ;
+rudder_input_right_char .
+rudder_offset_left_char j
+rudder_offset_right_char k
+throttle_input_up_char p
+throttle_input_down_char u
+
+pause_char x
+exit_char $
