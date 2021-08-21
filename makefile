@@ -35,13 +35,13 @@ build/:
 
 # Files
 build/main: $(objects)
-	$(CC) $(CFLAGS) $(objects) -o build/main
+	$(CC) $(CFLAGS) $(objects) -o build/main $(LD_LIBS)
 
 # Commands
 all: build/main
 
 test: build/main
-	build/main $(FLAGS) --plane files/planes/unit_cube --world files/worlds/flat_earth
+	build/main $(FLAGS) --plane $(TEST_PLACE) --world $(TEST_WORLD)
 
 run: build/main
 	build/main $(FLAGS)

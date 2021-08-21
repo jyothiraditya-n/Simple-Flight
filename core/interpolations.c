@@ -26,5 +26,6 @@ double blint(double v1, double v2, double v3, double v4, double t1, double t2) {
 }
 
 double tlint(double v1, double v2, double v3, double v4, double v5, double v6, double v7, double v8, double t1, double t2, double t3) {
-	return blint(v1, v1, v3, v4, t1, t2) + (t3 * (blint(v5, v6, v7, v8, t1, t2) - blint(v1, v1, v3, v4, t1, t2)));
+	return blint(v1, v2, v3, v4, t1, t2)
+		+ (t3 * (blint(v5, v6, v7, v8, t1, t2) - blint(v1, v2, v3, v4, t1, t2)));
 }

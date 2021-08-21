@@ -40,6 +40,7 @@ pthread_t interface_helper_thread = 0;
 /* Function Definitions */
 int main(int argc, char **argv) {
 	bool headless_flag = false, help_flag = false;
+	int ret = 0;
 
 	clock_t start, end;
 	double time_difference;
@@ -85,6 +86,8 @@ int main(int argc, char **argv) {
 		printf("--interface INTERFACE: Set the filename for the interface to INTERFACE.\n");
 		printf("--plane PLANE: Set the filename for the plane to PLANE.\n");
 		printf("--world WORLD: Set the filename for the world to WORLD.\n\n");
+
+		if(ret) printf("You shouldn't see this, this is just there to shut the compiler up.\n\n");
 	}
 
 	else {
@@ -92,7 +95,7 @@ int main(int argc, char **argv) {
 			plane_file = (char *) calloc(4096, sizeof(char));
 
 			printf("Enter the filename for the plane: ");
-			scanf("%s", plane_file);
+			ret = scanf("%s", plane_file);
 			printf("\n");
 		}
 		pthread_create(&physics_thread, NULL, physics_main, NULL);
@@ -101,7 +104,7 @@ int main(int argc, char **argv) {
 			world_file = (char *) calloc(4096, sizeof(char));
 
 			printf("Enter the filename for the world: ");
-			scanf("%s", world_file);
+			ret = scanf("%s", world_file);
 			printf("\n");
 		}
 		pthread_create(&world_thread, NULL, world_main, NULL);
@@ -117,11 +120,11 @@ int main(int argc, char **argv) {
 
 			while(true) {
 				printf("> ");
-				scanf("%s", buffer);
+				ret = scanf("%s", buffer);
 				printf("\n");
 
 				if(!strcmp(buffer, "about")) {
-					scanf("%s", buffer);
+					ret = scanf("%s", buffer);
 
 					if(!strcmp(buffer, "warranty")) {
 						printf("Simple Flight Copyright (C) 2019 Jyothiraditya Nellakra (Der Linux König)\n\n");
@@ -192,7 +195,7 @@ int main(int argc, char **argv) {
 				}
 
 				else if(!strcmp(buffer, "get")) {
-					scanf("%s", buffer);
+					ret = scanf("%s", buffer);
 					if(!strcmp(buffer, "paused")) printf("%s\n\n", paused_flag ? "true" : "false");
 
 					else if(!strcmp(buffer, "orientation.alpha")) printf("%lf\n\n", plane_orientation.alpha);
@@ -218,30 +221,30 @@ int main(int argc, char **argv) {
 				}
 
 				else if(!strcmp(buffer, "set")) {
-					scanf("%s", buffer);
+					ret = scanf("%s", buffer);
 
 					if(!strcmp(buffer, "paused")) {
-						scanf("%s", buffer);
+						ret = scanf("%s", buffer);
 						if(!strcmp(buffer, "true")) paused_flag = true;
 						else if(!strcmp(buffer, "false")) paused_flag = false;
 					}
 
-					else if(!strcmp(buffer, "orientation.alpha")) scanf("%lf", &plane_orientation.alpha);
-					else if(!strcmp(buffer, "orientation.beta")) scanf("%lf", &plane_orientation.beta);
-					else if(!strcmp(buffer, "orientation.gamma")) scanf("%lf", &plane_orientation.gamma);
+					else if(!strcmp(buffer, "orientation.alpha")) ret = scanf("%lf", &plane_orientation.alpha);
+					else if(!strcmp(buffer, "orientation.beta")) ret = scanf("%lf", &plane_orientation.beta);
+					else if(!strcmp(buffer, "orientation.gamma")) ret = scanf("%lf", &plane_orientation.gamma);
 
-					else if(!strcmp(buffer, "angular_velocity.alpha")) scanf("%lf", &plane_angular_velocity.alpha);
-					else if(!strcmp(buffer, "angular_velocity.beta")) scanf("%lf", &plane_angular_velocity.beta);
-					else if(!strcmp(buffer, "angular_velocity.gamma")) scanf("%lf", &plane_angular_velocity.gamma);
+					else if(!strcmp(buffer, "angular_velocity.alpha")) ret = scanf("%lf", &plane_angular_velocity.alpha);
+					else if(!strcmp(buffer, "angular_velocity.beta")) ret = scanf("%lf", &plane_angular_velocity.beta);
+					else if(!strcmp(buffer, "angular_velocity.gamma")) ret = scanf("%lf", &plane_angular_velocity.gamma);
 
-					else if(!strcmp(buffer, "velocity.x")) scanf("%lf", &plane_velocity.x);
-					else if(!strcmp(buffer, "velocity.y")) scanf("%lf", &plane_velocity.y);
-					else if(!strcmp(buffer, "velocity.z")) scanf("%lf", &plane_velocity.z);
+					else if(!strcmp(buffer, "velocity.x")) ret = scanf("%lf", &plane_velocity.x);
+					else if(!strcmp(buffer, "velocity.y")) ret = scanf("%lf", &plane_velocity.y);
+					else if(!strcmp(buffer, "velocity.z")) ret = scanf("%lf", &plane_velocity.z);
 
-					else if(!strcmp(buffer, "aileron_input")) scanf("%lf", &aileron_input);
-					else if(!strcmp(buffer, "elevator_input")) scanf("%lf", &elevator_input);
-					else if(!strcmp(buffer, "rudder_input")) scanf("%lf", &rudder_input);
-					else if(!strcmp(buffer, "throttle_input")) scanf("%lf", &throttle_input);
+					else if(!strcmp(buffer, "aileron_input")) ret = scanf("%lf", &aileron_input);
+					else if(!strcmp(buffer, "elevator_input")) ret = scanf("%lf", &elevator_input);
+					else if(!strcmp(buffer, "rudder_input")) ret = scanf("%lf", &rudder_input);
+					else if(!strcmp(buffer, "throttle_input")) ret = scanf("%lf", &throttle_input);
 				}
 
 				else if(!strcmp(buffer, "exit")) {
@@ -256,7 +259,7 @@ int main(int argc, char **argv) {
 				interface_file = (char *) calloc(4096, sizeof(char));
 
 				printf("Enter the filename for the interface: ");
-				scanf("%s", interface_file);
+				ret = scanf("%s", interface_file);
 				printf("\n");
 			}
 
@@ -280,109 +283,109 @@ int main(int argc, char **argv) {
 
 			while(!aileron_input_left_char) {
 				printf("Enter the character for moving the aileron input left: ");
-				scanf(" %c", &aileron_input_left_char);
+				ret = scanf(" %c", &aileron_input_left_char);
 				printf("\n");
 			}
 
 			while(!aileron_input_right_char) {
 				printf("Enter the character for moving the aileron input right: ");
-				scanf(" %c", &aileron_input_right_char);
+				ret = scanf(" %c", &aileron_input_right_char);
 				printf("\n");
 			}
 
 			while(!aileron_offset_left_char) {
 				printf("Enter the character for moving the aileron offset left: ");
-				scanf(" %c", &aileron_offset_left_char);
+				ret = scanf(" %c", &aileron_offset_left_char);
 				printf("\n");
 			}
 
 			while(!aileron_offset_right_char) {
 				printf("Enter the character for moving the aileron offset right: ");
-				scanf(" %c", &aileron_offset_right_char);
+				ret = scanf(" %c", &aileron_offset_right_char);
 				printf("\n");
 			}
 
 			while(!elevator_input_back_char) {
 				printf("Enter the character for moving the elevator input back: ");
-				scanf(" %c", &elevator_input_back_char);
+				ret = scanf(" %c", &elevator_input_back_char);
 				printf("\n");
 			}
 
 			while(!elevator_input_forwards_char) {
 				printf("Enter the character for moving the elevator input forwards: ");
-				scanf(" %c", &elevator_input_forwards_char);
+				ret = scanf(" %c", &elevator_input_forwards_char);
 				printf("\n");
 			}
 
 			while(!elevator_offset_back_char) {
 				printf("Enter the character for moving the elevator offset back: ");
-				scanf(" %c", &elevator_offset_back_char);
+				ret = scanf(" %c", &elevator_offset_back_char);
 				printf("\n");
 			}
 
 			while(!elevator_offset_forwards_char) {
 				printf("Enter the character for moving the elevator offset forwards: ");
-				scanf(" %c", &elevator_offset_forwards_char);
+				ret = scanf(" %c", &elevator_offset_forwards_char);
 				printf("\n");
 			}
 
 			while(!rudder_input_left_char) {
 				printf("Enter the character for moving the rudder input left: ");
-				scanf(" %c", &rudder_input_left_char);
+				ret = scanf(" %c", &rudder_input_left_char);
 				printf("\n");
 			}
 
 			while(!rudder_input_right_char) {
 				printf("Enter the character for moving the rudder input right: ");
-				scanf(" %c", &rudder_input_right_char);
+				ret = scanf(" %c", &rudder_input_right_char);
 				printf("\n");
 			}
 
 			while(!rudder_offset_left_char) {
 				printf("Enter the character for moving the rudder offset left: ");
-				scanf(" %c", &rudder_offset_left_char);
+				ret = scanf(" %c", &rudder_offset_left_char);
 				printf("\n");
 			}
 
 			while(!rudder_offset_right_char) {
 				printf("Enter the character for moving the rudder offset right: ");
-				scanf(" %c", &rudder_offset_right_char);
+				ret = scanf(" %c", &rudder_offset_right_char);
 				printf("\n");
 			}
 
 			while(!throttle_input_up_char) {
 				printf("Enter the character for moving the throttle input up: ");
-				scanf(" %c", &throttle_input_up_char);
+				ret = scanf(" %c", &throttle_input_up_char);
 				printf("\n");
 			}
 
 			while(!throttle_input_down_char) {
 				printf("Enter the character for moving the throttle input down: ");
-				scanf(" %c", &throttle_input_down_char);
+				ret = scanf(" %c", &throttle_input_down_char);
 				printf("\n");
 			}
 
 			while(!pause_char) {
 				printf("Enter the character for toggling the paused state of the program: ");
-				scanf(" %c", &pause_char);
+				ret = scanf(" %c", &pause_char);
 				printf("\n");
 			}
 
 			while(!exit_char) {
 				printf("Enter the character for exiting the program: ");
-				scanf(" %c", &exit_char);
+				ret = scanf(" %c", &exit_char);
 				printf("\n");
 			}
 
 			while(input_half_life == 0) {
 				printf("Enter the half-life period for the input: ");
-				scanf("%lf", &input_half_life);
+				ret = scanf("%lf", &input_half_life);
 				printf("\n");
 			}
 
 			while(input_delta == 0) {
 				printf("Enter the delta for the input: ");
-				scanf("%lf", &input_delta);
+				ret = scanf("%lf", &input_delta);
 				printf("\n");
 			}
 
@@ -390,13 +393,14 @@ int main(int argc, char **argv) {
 				graphics_file = (char *) calloc(4096, sizeof(char));
 
 				printf("Enter the filename for the graphics: ");
-				scanf("%s", graphics_file);
+				ret = scanf("%s", graphics_file);
 				printf("\n");
 			}
 			pthread_create(&graphics_thread, NULL, graphics_main, NULL);
 
 			while(!graphics_ready);
-			system("/bin/stty raw");
+			ret = system("/bin/stty raw");
+
 			pthread_create(&interface_helper_thread, NULL, interface_helper, NULL);
 
 			while(!exit_flag) {
@@ -433,7 +437,7 @@ int main(int argc, char **argv) {
 
 			pthread_join(interface_helper_thread, NULL);
 			pthread_join(graphics_thread, NULL);
-			system("/bin/stty cooked");
+			ret = system("/bin/stty cooked");
 		}
 
 		pthread_join(physics_thread, NULL);
@@ -444,4 +448,5 @@ int main(int argc, char **argv) {
 
 void *interface_helper() {
 	while(!exit_flag) if(!input_char) input_char = getchar();
+	return NULL;
 }

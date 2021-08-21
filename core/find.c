@@ -27,15 +27,19 @@ char find_char(char *filename, char *identifier) {
 	char buffer[4096] = {0};
 	FILE *file = fopen(filename, "r");
 	char character = 0;
+	int ret = 0;
 
 	if(file) {
 		while(fscanf(file, "%s", buffer) != EOF) {
 			if(!strcmp(identifier, buffer)) {
-				fscanf(file, " %c", &character);
+				ret = fscanf(file, " %c", &character);
 				break;
 			}
 
-			else fscanf(file, "%s", buffer);
+			else {
+				ret = fscanf(file, "%s", buffer);
+				if(ret != 1) break;
+			}
 		}
 
 		fclose(file);
@@ -48,15 +52,19 @@ size_t find_size(char *filename, char *identifier) {
 	char buffer[4096] = {0};
 	FILE *file = fopen(filename, "r");
 	size_t size = 0;
+	int ret = 0;
 
 	if(file) {
 		while(fscanf(file, "%s", buffer) != EOF) {
 			if(!strcmp(identifier, buffer)) {
-				fscanf(file, "%zu", &size);
+				ret = fscanf(file, "%zu", &size);
 				break;
 			}
 
-			else fscanf(file, "%s", buffer);
+			else {
+				ret = fscanf(file, "%s", buffer);
+				if(ret != 1) break;
+			}
 		}
 
 		fclose(file);
@@ -69,15 +77,19 @@ double find_value(char *filename, char *identifier) {
 	char buffer[4096] = {0};
 	FILE *file = fopen(filename, "r");
 	double value = 0.0;
+	int ret = 0;
 
 	if(file) {
 		while(fscanf(file, "%s", buffer) != EOF) {
 			if(!strcmp(identifier, buffer)) {
-				fscanf(file, "%lf", &value);
+				ret = fscanf(file, "%lf", &value);
 				break;
 			}
 
-			else fscanf(file, "%s", buffer);
+			else {
+				ret = fscanf(file, "%s", buffer);
+				if(ret != 1) break;
+			}
 		}
 
 		fclose(file);

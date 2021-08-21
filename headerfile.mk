@@ -13,20 +13,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-# Flags
-ifeq ($(.DEFAULT_GOAL),)
-	.DEFAULT_GOAL = all
-endif
-FLAGS += --height $(shell tput lines) --width $(shell tput cols) --graphics files/graphics/$(shell hostname)
+# Command Flags
+.DEFAULT_GOAL = all
 
-ifeq ($(CC),)
-	CC = cc
-endif
-CFLAGS += -pthread -lm -I ./
+FLAGS += --height $(shell tput lines) --width $(shell tput cols)
+FLAGS += --graphics files/graphics/$(shell hostname)
 
-ifeq ($(LD),)
-	LD = ld
-endif
+TEST_PLANE ?= files/planes/unit_cube
+TEST_WORLD ?= files/worlds/flat_earth
+
+CC ?= gcc
+CFLAGS += -Wall -Wextra -Werror -std=c99 -O3 -I ./
+
+LD ?= ld
+LD_LIBS = -pthread -lm
 
 # Command Declarations
 .PHONY: all test run clean

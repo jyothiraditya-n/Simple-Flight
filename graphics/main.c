@@ -36,6 +36,7 @@
 /* Function Definitions */
 void *graphics_main() {
 	char buffer[4096] = {0};
+	int ret = 0;
 
 	double height, width;
 	ray_t ray_sight_top_left, ray_sight_top_right, ray_sight_bottom_left, ray_sight_bottom_right;
@@ -93,43 +94,50 @@ void *graphics_main() {
 
 	while(!screen_height) {
 		printf("Enter the screen height: ");
-		scanf("%zu", &screen_height);
+		ret = scanf(" %zu", &screen_height);
+		if(ret != 1) { fprintf(stderr, "Scanf error."); exit(1); }
 		printf("\n");
 	}
 
 	while(!screen_width) {
 		printf("Enter the screen width: ");
-		scanf("%zu", &screen_width);
+		ret = scanf(" %zu", &screen_width);
+		if(ret != 1) { fprintf(stderr, "Scanf error."); exit(1); }
 		printf("\n");
 	}
 
 	while(display_scale.x == 0.0) {
 		printf("Enter the distance to the display: ");
-		scanf("%lf", &display_scale.x);
+		ret = scanf(" %lf", &display_scale.x);
+		if(ret != 1) { fprintf(stderr, "Scanf error."); exit(1); }
 		printf("\n");
 	}
 
 	while(display_scale.y == 0.0) {
 		printf("Enter the height of the display: ");
-		scanf("%lf", &display_scale.y);
+		ret = scanf(" %lf", &display_scale.y);
+		if(ret != 1) { fprintf(stderr, "Scanf error."); exit(1); }
 		printf("\n");
 	}
 
 	while(display_scale.z == 0.0) {
 		printf("Enter the width of the display: ");
-		scanf("%lf", &display_scale.z);
+		ret = scanf(" %lf", &display_scale.z);
+		if(ret != 1) { fprintf(stderr, "Scanf error."); exit(1); }
 		printf("\n");
 	}
 
 	while(render_density == 0.0) {
 		printf("Enter the render density: ");
-		scanf("%lf", &render_density);
+		ret = scanf(" %lf", &render_density);
+		if(ret != 1) { fprintf(stderr, "Scanf error."); exit(1); }
 		printf("\n");
 	}
 
 	while(render_distance == 0.0) {
 		printf("Enter the render distance: ");
-		scanf("%lf", &render_distance);
+		ret = scanf(" %lf", &render_distance);
+		if(ret != 1) { fprintf(stderr, "Scanf error."); exit(1); }
 		printf("\n");
 	}
 
@@ -232,4 +240,6 @@ void *graphics_main() {
 
 		graphics_render();
 	}
+
+	return NULL;
 }
